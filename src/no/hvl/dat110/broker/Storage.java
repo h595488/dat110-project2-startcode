@@ -70,6 +70,7 @@ public class Storage {
 
 		// TODO: disconnet the client (user) 
 		// and remove client session for user from the storage
+		//Må kanskje disconnecte? 
 		clients.remove(user);
 		throw new UnsupportedOperationException(TODO.method());
 		
