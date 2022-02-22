@@ -1,6 +1,7 @@
 package no.hvl.dat110.broker;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -54,6 +55,12 @@ public class Storage {
 
 		// TODO: add corresponding client session to the storage
 		// See ClientSession class
+		ClientSession session = new ClientSession(user, connection);
+		clients.put(user, session);
+		// har ikke peiling om det her fungere men det vil kanskje det?
+		
+		
+		
 		
 		throw new UnsupportedOperationException(TODO.method());
 		
@@ -63,7 +70,7 @@ public class Storage {
 
 		// TODO: disconnet the client (user) 
 		// and remove client session for user from the storage
-		
+		clients.remove(user);
 		throw new UnsupportedOperationException(TODO.method());
 		
 	}
@@ -71,7 +78,9 @@ public class Storage {
 	public void createTopic(String topic) {
 
 		// TODO: create topic in the storage
-
+		
+		subscriptions.put(topic, new HashSet<>());
+		
 		throw new UnsupportedOperationException(TODO.method());
 	
 	}
@@ -79,7 +88,7 @@ public class Storage {
 	public void deleteTopic(String topic) {
 
 		// TODO: delete topic from the storage
-
+		subscriptions.remove(topic);
 		throw new UnsupportedOperationException(TODO.method());
 		
 	}
@@ -87,7 +96,9 @@ public class Storage {
 	public void addSubscriber(String user, String topic) {
 
 		// TODO: add the user as subscriber to the topic
-		
+		if(subscriptions.contains(topic)) {
+			subscriptions.get(topic).add(user);
+		}
 		throw new UnsupportedOperationException(TODO.method());
 		
 	}
@@ -95,7 +106,9 @@ public class Storage {
 	public void removeSubscriber(String user, String topic) {
 
 		// TODO: remove the user as subscriber to the topic
-
+		if(subscriptions.contains(topic)) {
+			subscriptions.get(topic).remove(user);
+		}
 		throw new UnsupportedOperationException(TODO.method());
 	}
 }
